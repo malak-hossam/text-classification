@@ -1,0 +1,11 @@
+seed: 42
+device: auto
+data:
+  raw_csv: data/raw/arabic_sentiment_reviews.csv
+  processed_csv: data/processed/arabic_sentiment_reviews_processed.csv
+preprocess:
+  remove_stopwords: true
+split:
+  test_size: 0.30
+  random_state: 42
+

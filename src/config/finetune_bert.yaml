@@ -1,0 +1,32 @@
+seed: 42
+device: auto
+run_name: arabert_finetune
+data:
+  raw_csv: data/raw/arabic_sentiment_reviews.csv
+  processed_csv: data/processed/arabic_sentiment_reviews_processed.csv
+preprocess:
+  remove_stopwords: true
+split:
+  test_size: 0.30
+  random_state: 42
+model:
+  name: arabert
+  freeze_backbone: true
+  max_length: 128
+trainer:
+  evaluation_strategy: epoch
+  save_strategy: epoch
+  per_device_train_batch_size: 8
+  per_device_eval_batch_size: 8
+  num_train_epochs: 2
+  learning_rate: 0.00002
+  weight_decay: 0.01
+  warmup_steps: 100
+  logging_strategy: steps
+  logging_steps: 10
+  save_total_limit: 2
+  load_best_model_at_end: true
+  metric_for_best_model: eval_accuracy
+  greater_is_better: true
+  report_to: none
+

@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Import smoke check
+        run: |
+          python -m compileall src
+          python -c "from src.data.preprocess import preprocess_text; print(preprocess_text('هذا مثال'))"
+
+      - name: Run tests
+        env:
+          PYTHONPATH: .
+        run: pytest -q
+
